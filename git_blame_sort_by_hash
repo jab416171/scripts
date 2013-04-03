@@ -1,0 +1,1 @@
+git blame $file > ${file}blame; cat ${file}blame | cut -d " " -f 1 | sort | uniq | while read hash; do echo -n $hash" "; grep -c $hash ${file}blame; done | awk -F" " '{print $2, $1}' | sort -h
