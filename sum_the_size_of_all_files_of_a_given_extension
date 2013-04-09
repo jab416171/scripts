@@ -1,0 +1,1 @@
+find . -name "*.class" | xargs ls -l | awk -F" " '{print $5}' | paste -sd+ | bc
