@@ -1,0 +1,4 @@
+for br in `git branch -a | tail -n+3`; do 
+  echo $br
+  git cherry remotes/origin/master $br | cut -d " " -f 2 | xargs git show --summary | grep "Author" | sort | uniq -c | sort -h
+done
