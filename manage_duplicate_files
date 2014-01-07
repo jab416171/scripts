@@ -1,0 +1,7 @@
+#Find duplicates
+find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate > /tmp/somefile
+
+#Edit /tmp/somefile and delete all the lines you want to keep. The lines left in the file will be DELETED!
+
+#Delete all the files in /tmp/somefile
+cat /tmp/somefile | cut -f3-100 -d ' ' | tr '\n.' '\t.' | sed 's/\t\t/\n/g' | cut -f2-100 | tr '\t' '\n' | perl -i -pe 's/([ (){}-])/\\$1/g' | perl -i -pe 's/'\''/\\'\''/g' | xargs rm -v
